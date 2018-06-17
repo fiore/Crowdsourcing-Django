@@ -1,0 +1,89 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+
+	{% block header %}	
+	{% endblock %}
+	
+	<title>Tesi</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="{% static 'crowdsourcing/bootstrap.min.css' %}">
+	
+	<style type="text/css">
+		body {
+			padding-top: 3.5rem;
+		}
+	</style>
+</head>
+
+<body>
+	{% include 'crowdsourcing/header.html' %}	
+	
+	{% block main %}
+
+	<div class="jumbotron">
+		<div class="container">
+
+			{% if messages %}
+				<style type="text/css">
+					.alert-warning {
+						border-color: #856404;
+					}
+					.alert-danger {
+						border-color: #721c24;
+					}
+				</style>
+				{% for message in messages %}
+
+					{% if message.tags == 'warning' %}
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					{% endif %}
+					{% if message.tags == 'error' %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					{% endif %}
+						<strong>Attention!</strong> {{ message }}.
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				{% endfor %}
+
+			{% endif %}
+
+			{% if request.user.is_authenticated %}
+				<h2>Hello, {{ user }}</h2><br>				
+				{% block first %}
+				{% endblock %}
+			{% endif %}
+		</div>
+	</div>
+
+	{% endblock %}
+
+	<div class="container">	
+	
+		<hr>
+
+		<footer>
+			<p class="text-center">
+				<img width="40" alt="" src="{% static 'crowdsourcing/l_crowd_logo_small.jpg' %}"/>
+				LiquidCrowd Project | Powered by
+				<a href="http://islab.di.unimi.it" target="_blank">
+					<img width="40" alt="" src="{% static 'crowdsourcing/islab_logo.png' %}"/>
+				</a>
+			</p>
+		</footer>
+	</div> <!-- /container -->
+
+
+	<script src="{% static 'crowdsourcing/jquery-3.2.1.slim.min.js' %}"></script>
+	<script src="{% static 'crowdsourcing/popper.min.js' %}"></script>
+	<script src="{% static 'crowdsourcing/bootstrap.min.js' %}"></script>
+	{% block javascript %}
+	{% endblock %}
+</body>
+</html>

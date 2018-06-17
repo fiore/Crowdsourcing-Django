@@ -1,0 +1,165 @@
+{% extends 'crowdsourcing/base.html' %}
+
+{% load crowdsourcing_extras %}
+
+{% block header %}
+
+
+
+{% endblock %}
+
+{% block main %}
+<style type="text/css">
+	#wrapper {
+		text-align: center;
+	}
+	#wrapper button {
+		display: inline-block;
+	}
+	.custom-control-input:focus~.custom-control-indicator {
+		-webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 3px #28a745;
+		box-shadow: 0 0 0 1px #fff, 0 0 0 3px #28a745;
+	}
+	.custom-control-input:checked~.custom-control-indicator {
+		color: #fff;
+		background-color: #28a745;
+	}
+</style>
+
+<div class="jumbotron">
+	<div class="container">
+
+		{% if Error %}
+			<p>{{ Error }}</p>
+		{% endif %}
+
+		{% if not Error %}
+			<div id="wrapper">
+				<button class="btn btn-danger">
+					Remaining seconds to the task expiration: <span id="countdown" class="badge badge-danger"></span>
+				</button>
+			</div><br>
+		{% endif %}
+
+		<div id="context"></div>
+		<div id="title"></div>
+		
+		<form id="form" action="{% url 'crowdsourcing:Task' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.0}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.0}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.1}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.1}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.2}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.2}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.3}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.3}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.4}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.4}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.5}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.5}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.6}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.6}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.7}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.7}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.8}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.8}}</span>
+			</label>
+			<label class="custom-control custom-radio">
+				<input type="radio" name="choices" value="{{choices.9}}" required class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">{{choices.9}}</span>
+			</label>
+				<input type="hidden" name="task" value="{{ task }}">
+				<input type="hidden" name="round" value="{{ round }}">
+				<input type="hidden" name="answer" value="true">
+				<button id="refuse" class="btn btn-outline-danger" type="submit" formnovalidate>Refuse</button>
+				<button id="send" class="btn btn-outline-success" type="submit">Send</button>
+		</form>
+		<div class="alert alert-dark alert-dismissible fade show" role="alert" style="margin-top: 50px;">
+			<strong>Attention!</strong> If you reload or leave the task without submitting an answer, it will be marked as refused.
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+
+<script type="text/javascript">
+
+	// if (localStorage.getItem("seconds") !== null){
+	// 	countdown = localStorage.getItem("seconds");
+	// }
+	// else{
+	// }
+		countdown = {{ countdown }}
+
+	LocalTime(countdown--)
+
+	function LocalTime(countdown){
+		document.getElementById("countdown").innerText = countdown;
+		if(countdown>0){
+			// localStorage.setItem("seconds",countdown);
+			window.setTimeout("LocalTime(countdown--)", 1000);
+		}
+		else{
+			// localStorage.removeItem("seconds");
+			$('input[name=answer]').val('none');
+			$( "#form" ).submit();
+		}
+	}
+
+	// $( "#form" ).submit(function( event ) {
+	// 	localStorage.removeItem("seconds");
+	// })
+
+
+	$(document).ready(function () {
+
+		history.replaceState( {} , '', '/crowdsourcing/' );
+
+		$('#context').append("{{ context }}")
+		var title = "{{ title }}"
+		title = title.replace(/&lt;/g,'<').replace(/&gt;/g, '>')
+		$('#title').append(title)
+	});
+
+	window.addEventListener("beforeunload", function (e) {
+		var confirmationMessage = "\o/";
+
+		e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
+		return confirmationMessage;              // Gecko, WebKit, Chrome <34
+	});
+
+</script>
+{% endblock %}
+

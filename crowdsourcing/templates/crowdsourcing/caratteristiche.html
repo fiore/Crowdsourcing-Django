@@ -1,0 +1,55 @@
+{% extends 'crowdsourcing/base.html' %}
+
+{% block main %}
+<style type="text/css">
+	h1{
+		margin: 40px 0;
+	}
+
+	h1:first-child{
+		margin: 0 0 40px 0;
+	}
+</style>
+
+<div class="jumbotron">
+	<div class="container">
+		
+		<h1>Cos'è LiquidCrowd</h1>
+		LiquidCrowd è un framework di crowdsourcing fondato su tre aspetti caratterizzanti: 
+
+		<ul>
+			<li>Un task (i.e., lavoro da svolgere) è assegnato a un gruppo invece che a un singolo lavoratore.</li>
+			<li>La qualità del risultato di un task svolto è valutata con meccanismi di consenso basati su maggioranza qualificata.</li>
+			<li>Ciascun lavoratore è caratterizzato da una misura di affidabilità o <em>trustworthiness</em> che "sintetizza" in un numero la capacità del lavoratore di svolgere correttamente i task che gli sono assegnati.</li>
+		</ul>
+
+		<h1>Principi di funzionamento</h1>
+
+		<p>Si consideri un task T da eseguire. Il task è assegnato a un gruppo di lavoratori e ciascun lavoratore svolge il task e produce il proprio risultato in modo autonomo e indipendente dagli altri membri del gruppo sulla base della proprie competenze e conoscenze.</p>
+
+		<p>Dopo lo svolgimento del task T, si valuta l'eventuale consenso tra i lavoratori che hanno svolto il task considerando tutti i risultati prodotti. Due lavoratori concordano sul risultato del task quando forniscono risposte equivalenti (e.,g., scelgono la medesima opzione tra quelle disponibili).</p>
+
+		<p>Il task si considera <em>completato con successo</em> quando esiste una "maggioranza" di lavoratori che concordano sul risultato del task. Chiamiamo <em>primo risultato candidato</em> (1RC) il risultato del task che ha ottenuto il maggiore consenso tra i lavoratori che hanno svolto il task. Il consenso ottenuto da 1RC è espresso dalla somma delle trustworthiness dei lavoratori che hanno fornito 1RC come risposta del task. La maggioranza è valutata verificando la sussistenza di due vincoli:
+			<ul>
+				<li>quorum: richiede che il consenso di 1RC sia maggiore di una certa percentuale fissata.</li>
+				<li>balance-of-power: richiede che non esista un lavoratore così determinante per l'esito del task da poter cambiare con la propria risposta il risultato del task. In altri termini, il principio del balance-of-power verifica che non esista un altro risultato candidato che possa avere maggior consenso di 1RC se uno dei lavoratori che sostiene 1RC decide di cambiare la propria risposta al task.</li>
+			</ul>
+		</p>
+
+		<p>Se un task non è completato con successo può essere ri-eseguito. In questo caso, il task è assegnato a un nuovo gruppo (i cui componenti hanno trustworthiness più alta del precedente gruppo che ha eseguito il task in precedenza). La ri-esecuzione del task può essere invocata a un numero massimo di volte stabilito nella configurazione iniziale di LiquidCrowd. 
+		</p>
+
+		<h1>Remunerazione dei lavoratori</h1>
+		Un lavoratore riceve un (<i>salario</i>) per ogni task svolto indipendentemente dall'esito del task. Inoltre, se il task è completato con successo (i.e., 1RC soddisfa sia il quorum sia il balance-of-power), ciascun lavoratore che ha contribuito alla formazione del consenso (cioè ha fornito 1RC come risultato del task) riceve un <i>premio</i>. Salario e premio costituiscono la remunerazione (punteggio) del lavoratore.
+
+		<h1>Affidabilità (trustworthiness) dei lavoratori</h1>
+		La trustworthiness di un lavoratore corrisponde inizialmente a un valore predefinito uguale per tutti i lavoratori e viene aggiornata dopo lo svolgimento di ciascun task. Sia <i>&tau;<sub>t</sub></i> la trustworthiness di un lavoratore al momento <i>t</i> prima dell'esecuzione del task T e sia <i>&tau;<sub>t+1</sub></i> la trustworthiness al momento <i>t+1</i> dopo l'esecuzione del task T.
+		<ul>
+			<li>La trustworthiness del lavoratore cresce (i.e., <i>&tau;<sub>t+1</sub></i> &gt; <i>&tau;<sub>t</sub></i>) se il lavoratore ha partecipato al consenso nello svolgimento del task T (ha risposto 1RC come risultato del task).</li>
+			<li>La trustworthiness del lavoratore decresce (i.e., <i>&tau;<sub>t+1</sub></i> &lt; <i>&tau;<sub>t</sub></i>) se il lavoratore NON ha partecipato al consenso nello svolgimento del task T (ha fornito una risposta diversa da 1RC come risultato del task).</li>
+		</ul>
+
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{
+	"tasks": [
+		{
+			"context": "ANALISI DI MODELLI: abilit\u00E0 di riconoscere modelli noti (come figure, parole o oggetti) che sono nascosti in un materiale considerato.", 
+			"title": "\n  <b>Questionario preliminare allo svolgimento dei task</b>: <br />\n Si chiede di auto-valutare <u>sinceramente</u> le proprie abilit\u00E0 in merito al tema indicato. <br />\n <br />\n  Con il voto 0 si reputa di non possedere l'abilit\u00e0 in questione, con 9 ci si ritiene di fortemente competenti. <br />\n ", 
+			"choices": {
+				"0": 0, 
+				"1": 1, 
+				"2": 2, 
+				"3": 3, 
+				"4": 4, 
+				"5": 5, 
+				"6": 6, 
+				"7": 7, 
+				"8": 8, 
+				"9": 9
+			}
+		}, 
+		{
+			"context": "COMPARAZIONE: consiste nel comparare lettere, numeri, oggetti, immagini, o modelli in modo accurato e rapido.", 
+			"title": "\n  <b>Questionario preliminare allo svolgimento dei task</b>: <br />\n Si chiede di auto-valutare <u>sinceramente</u> le proprie abilit\u00E0 in merito al tema indicato. <br />\n <br />\n  Con il voto 0 si reputa di non possedere l'abilit\u00e0 in questione, con 9 ci si ritiene di fortemente competenti. <br />\n ", 
+			"choices": {
+				"0": 0, 
+				"1": 1, 
+				"2": 2, 
+				"3": 3, 
+				"4": 4, 
+				"5": 5, 
+				"6": 6, 
+				"7": 7, 
+				"8": 8, 
+				"9": 9
+			}
+		}, 
+		{
+			"context": "COMPRENSIONE ORALE-SCRITTA: abilit\u00E0 di comprendere il senso di testi scritti e conversazioni.", 
+			"title": "\n  <b>Questionario preliminare allo svolgimento dei task</b>: <br />\n Si chiede di auto-valutare <u>sinceramente</u> le proprie abilit\u00E0 in merito al tema indicato. <br />\n <br />\n  Con il voto 0 si reputa di non possedere l'abilit\u00e0 in questione, con 9 ci si ritiene di fortemente competenti. <br />\n ", 
+			"choices": {
+				"0": 0, 
+				"1": 1, 
+				"2": 2, 
+				"3": 3, 
+				"4": 4, 
+				"5": 5, 
+				"6": 6, 
+				"7": 7, 
+				"8": 8, 
+				"9": 9
+			}
+		}, 
+		{
+			"context": "Computer", 
+			"title": "\n  <b>Questionario preliminare allo svolgimento dei task</b>: <br />\n Si chiede di auto-valutare <u>sinceramente</u> le proprie conoscenze in merito al tema indicato. <br />\n <br />\n  Con il voto 0 si reputa di non conoscere l'argomento, con 9 si ritiene di conoscerlo in modo approfondito e dettagliato. <br />\n ", 
+			"choices": {
+				"0": 0, 
+				"1": 1, 
+				"2": 2, 
+				"3": 3, 
+				"4": 4, 
+				"5": 5, 
+				"6": 6, 
+				"7": 7, 
+				"8": 8, 
+				"9": 9
+			}
+		}
+	]
+}

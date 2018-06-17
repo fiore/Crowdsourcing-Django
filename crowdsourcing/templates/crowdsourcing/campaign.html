@@ -1,0 +1,93 @@
+{% extends 'crowdsourcing/base.html' %}
+
+{% load crowdsourcing_extras %}
+
+{% block main %}
+
+<div class="jumbotron">
+	<div class="container">
+
+		<h2>Create a new Campaign</h2><br>
+		<form action="{% url 'crowdsourcing:Campaign' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="row">
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="name">Name:</label>
+					<input class="form-control" id="name" type="text" name="name" >
+				</div>
+				<div class="form-group col-md-6">
+					<label for="file">Upload JSON tasks</label><br>
+					{% for field in form %}
+						{{ field }}
+					{% endfor %}
+				</div>
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="start_date">Start date:</label>
+					<a class="today" id="start_date_t" href="#">Today</a>
+					<input class="form-control" id="start_date" type="date" name="start_date" required="">
+				</div>
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="finish_date">Finish date:</label>
+					<a class="today" id="finish_date_t" href="#">Today</a>
+					<input class="form-control" id="finish_date" type="date" name="finish_date" required="">
+				</div>
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="start_signup">Start date to sign up:</label>
+					<a class="today" id="start_signup_t" href="#">Today</a>
+					<input class="form-control" id="start_signup" type="date" name="start_signup" required="">
+				</div>
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="finish_signup">Finish date to sign up:</label>
+					<a class="today" id="finish_signup_t" href="#">Today</a>
+					<input class="form-control" id="finish_signup" type="date" name="finish_signup" required="">
+				</div>
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="init_trustworthiness">Initial trustworthiness</label>
+					<input class="form-control" type="number" name="init_trustworthiness" step="0.01" required="" id="init_trustworthiness">
+				</div>
+				
+				<div class="form-group col-auto">
+					<label class="col-form-label"></label><br>
+					<button class="btn btn-outline-success my-2 mr-sm-2" type="submit">Create</button>
+					<p id="error-warning" style="display: none">Wrong date</p>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+	var now = new Date();
+
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+	$( ".today" ).on( "click", function() {
+		id = ($(this)[0].id).slice(0,-2);
+		$(':input[id='+id+']').val(today);
+	});
+
+	$('form').submit(function () {
+			var start_date = $('#start_date').val();
+			var finish_date = $('#finish_date').val();
+			var start_signup = $('#start_signup').val();
+			var finish_signup = $('#finish_signup').val();
+
+			if (start_date > finish_date || start_signup > finish_signup || finish_signup > start_date) {
+					$("#error-warning").show();
+					return false;
+			}
+	});
+
+});
+
+</script>
+{% endblock %}
+

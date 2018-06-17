@@ -1,0 +1,54 @@
+{% extends 'crowdsourcing/base.html' %}
+
+{% load crowdsourcing_extras %}
+
+{% block main %}
+<div class="jumbotron">
+	<div class="container">	
+			{% if form.errors %}
+				<style type="text/css">
+					.errorlist{
+						list-style-type: none;
+						padding: 0;
+					}
+				</style>
+				{{ form.errors.username }}
+			{% endif %}
+			{% if email %}
+				<p>{{ email }}</p>
+			{% endif %}
+		<h2>Sign up</h2><br>
+		<form action="{% url 'crowdsourcing:Register' %}" method="post">
+			{% csrf_token %}
+			<div class="row">	
+				{% for field in form %}
+					<div class="form-group col-md-6">
+						<label class="col-form-label" for="{{ field.label }}">{{ field.label.capitalize|to_space }}</label>
+						{{ field }}
+					</div>
+				{% endfor %}
+				<div class="form-group col-md-6">
+					<label class="col-form-label" for="birth_date">Birthdate:</label>
+					<input class="form-control" id="birth_date" type="date" name="birth_date" required>
+				</div>
+				<div class="form-group col-auto mr-auto">
+					<label class="col-form-label">Genre:</label><br>
+					<label class="custom-control custom-radio">
+						<input type="radio" name="genre" value="F" required class="custom-control-input" id="genre_1">
+						<span class="custom-control-indicator"></span>
+						<span class="custom-control-description">Female</span>
+					</label>
+					<label class="custom-control custom-radio">
+						<input type="radio" name="genre" value="M" required class="custom-control-input" id="genre_2">
+						<span class="custom-control-indicator"></span>
+						<span class="custom-control-description">Male</span>
+					</label>
+				</div>
+				<div class="form-group col-auto">
+					<button class="btn btn-outline-success my-2 mr-sm-2" type="submit">Sign up</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

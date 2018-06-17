@@ -1,0 +1,129 @@
+{% load crowdsourcing_extras %}
+
+<div id="accordion" role="tablist">
+
+	<div class="card">
+		<a class="collapsed" data-toggle="collapse" href="#One" aria-expanded="false" aria-controls="One">
+			<h5 class="mb-0">
+				<div class="card-header" role="tab" id="headingOne">
+					Campaigns you can join
+				</div>
+			</h5>
+		</a>
+		<div id="One" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+			<div class="card-body">
+				{% if to_join %}
+
+					<table class="table table-striped">
+							<thead class="thead-inverse">
+								<tr>
+									<th>#</th>
+									<th>Name</th>
+									<th>Start Date</th>
+									<th>Finish Date</th>
+									<th>Start sign up</th>
+									<th>Finish sign up</th>
+									<th>Sign up</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for campaign in to_join %}
+								<tr>
+									
+										<td scope="row">{{forloop.counter}}</th>
+										<td>{{ campaign.name }}</td>
+										<td>{{ campaign.start_date }}</td>
+										<td>{{ campaign.finish_date }}</td>
+										<td>{{ campaign.start_signup }}</td>
+										<td>{{ campaign.finish_signup }}</td>
+										<td>
+											<form action="{% url 'crowdsourcing:SignUpToCampaign' campaign.id %}" method="post">
+												{% csrf_token %}
+												<div class="form-group">
+													<button type="submit" class="btn btn-outline-info">Sign up</button>
+												</div>
+											</form>
+										</td>									
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					
+				{% else %}
+					<h4>No campaigns available</h4>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="card">
+		<a class="collapsed" data-toggle="collapse" href="#Two" aria-expanded="false" aria-controls="Two">
+			<h5 class="mb-0">
+				<div class="card-header" role="tab" id="headingTwo">
+					Campaigns you've already joined
+				</div>
+			</h5>
+		</a>
+		<div id="Two" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+			<div class="card-body">
+				{% if already_joined %}
+
+					<table class="table table-striped">
+							<thead class="thead-inverse">
+								<tr>
+									<th>#</th>
+									<th>Name</th>
+									<th>Start Date</th>
+									<th>Finish Date</th>
+									<th>Start sign up</th>
+									<th>Finish sign up</th>
+									<th>Sign up</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for campaign in already_joined %}
+								<tr>
+									
+										<th scope="row">{{forloop.counter}}</th>
+										<td>{{ campaign.name }}</td>
+										<td>{{ campaign.start_date }}</td>
+										<td>{{ campaign.finish_date }}</td>
+										<td>{{ campaign.start_signup }}</td>
+										<td>{{ campaign.finish_signup }}</td>
+										<td>
+											{% if campaign.start_date|is_future or campaign.finish_date|is_past %}
+												<a href="#" class="btn btn-outline-info disabled" role="button" aria-disabled="true">Ask for a task</a>
+											{% else %}
+												<form action="{% url 'crowdsourcing:Task' %}" method="post">
+													{% csrf_token %}
+													<input type="hidden" name="answer" value="false">
+													<input type="hidden" name="campaign" value="{{ campaign.id }}">
+													<button class="btn btn-outline-success" type="submit">Ask for a task</button>
+												</form>
+											{% endif %}
+										</td>
+								</tr>
+								{% for st in score_trust %}
+									{% if campaign.id == st.id %}
+										<tr>
+												<td></td>
+												<td><strong>Score:</strong></td>
+												<td colspan="2">{{st.c_score}}</td>
+												<td><strong>Trustworthiness:</strong></td>
+												<td colspan="2">{{st.c_trustworthiness}}</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+
+							{% endfor %}
+							</tbody>
+						</table>
+					
+				{% else %}
+					<h4>No campaigns available</h4>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+</div>

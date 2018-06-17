@@ -1,0 +1,28 @@
+{% extends 'crowdsourcing/base.html' %}
+
+{% load crowdsourcing_extras %}
+
+{% block first %}
+
+{% if request.user|has_group:"Administrators" %}
+	
+
+		{% include 'crowdsourcing/administrator.html' %}	
+
+
+{% elif request.user|has_group:"Promoters" %}
+
+
+		{% include 'crowdsourcing/promoter.html' %}	
+
+
+{% elif request.user|has_group:"Workers" %}
+
+
+		{% include 'crowdsourcing/worker.html' %}	
+	
+
+{% endif %}
+
+
+{% endblock %}

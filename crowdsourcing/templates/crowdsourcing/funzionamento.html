@@ -1,0 +1,47 @@
+{% extends 'crowdsourcing/base.html' %}
+
+{% block main %}
+<style type="text/css">
+h1{
+	margin: 40px 0;
+}
+
+h1:first-child{
+	margin: 0 0 40px 0;
+}
+</style>
+
+<div class="jumbotron">
+	<div class="container">
+		<h1>Argo: un prototipo software per LiquidCrowd</h1>
+		Argo è il prototipo software realizzato sui principi di funzionamento di LiquidCrowd.
+		<h1>Come funziona?</h1>
+		Per poter accedere al sistema e partecipare alle attività di crowdsourcing è necessario eseguire la registrazione mediante il pulsante "Registrati" e fornire i dati richiesti (i dati memorizzati saranno utilizzati solamente per scopi statistici e saranno visibili solo all'interno del sistema Argo).<br/>
+		<strong>Scelta della username</strong>: 
+		<ul>
+			<li>
+				Studenti e personale dell'Università degli Studi di Milano: accedere mediante le credenziali d'ateneo. Inserire come username l'indirizzo email universitario (nome.congome@studenti.unimi.it oppure nome.cognome@unimi.it) e utilizzare la password di ateneo.
+			</li>
+			<li> 
+				Altro partecipante: scegliere liberamente la propria username e accedere mediante la password inserita in fase di registrazione. 
+			</li>
+		</ul>
+
+
+		Dopo aver effettuato l'accesso, il lavoratore avrà la possibilità di richiedere l'assegnazione di un nuovo task. Al completamento di un task, il sistema ne proporrà automaticamente uno nuovo da svolgere. Il lavoratore può decidere in ogni momento di interrompere l'assegnazione di nuovi task deselezionando la checkbox in fondo alla pagina).<br/><br/>
+
+		Il lavoratore ha la possibilit&agrave; di rifiutare un task: in questo modo il sistema assegnerà un altro task da eseguire e il task rifiutato non sarà più riproposto. Si raccomanda di utilizzare questa possibilità quando si ritiene di non sapere rispondere adeguatamente al task.<br/><br/>
+
+		<h1> Le statistiche </h1>
+
+		Nel menu "Task" è disponibile una pagina con le statistiche relative al lavoro svolto. In particolare, sono visibili i top-10 utenti per punteggio e una descrizione dettagliata dei risultati prodotti con il proprio lavoro.
+
+		<h1> Accesso da cellulare </h1>
+		Argo può essere utilizzato su dispositivo mobile.
+		Sono stati eseguiti test su dispositivi con sistema <b>Android</b> (browser consigliati: Chrome, Firefox e Dolphin) e <b>iOS</b> (browser consigliati: Safari, Chrome, Firefox e Dolphin).<br />
+		Il funzionamento su altre piattaforme non è stato verificato con test specifici, ma non dovrebbe presentare problemi.	
+
+	</div>
+</div>
+
+{% endblock %}
